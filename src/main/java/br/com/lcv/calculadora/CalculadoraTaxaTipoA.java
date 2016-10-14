@@ -1,14 +1,15 @@
 package br.com.lcv.calculadora;
 
-import br.com.lcv.model.Transferencia;
+import br.com.lcv.transferencia.TransferenciaBase;
 
-public class CalculadoraTaxaTipoA {
+public class CalculadoraTaxaTipoA implements ICalculadoraTaxa {
 
 	private static final double ACRESCIMO  = 0.03;
 	private static final int VALOR_ADICIONAL = 2;
 	
-	public double calculaTaxa(Transferencia transferencia) {
-		return (transferencia.getValor() * ACRESCIMO) + VALOR_ADICIONAL;		
+	@Override
+	public double calculaTaxa(TransferenciaBase transferenciaBase) {
+		return (transferenciaBase.getValor().doubleValue() * ACRESCIMO) + VALOR_ADICIONAL;		
 	}
 	
 }

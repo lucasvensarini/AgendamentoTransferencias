@@ -1,23 +1,24 @@
 package br.com.lcv.calculadora;
 
-import br.com.lcv.model.Transferencia;
+import br.com.lcv.transferencia.TransferenciaBase;
 
-public class CalculadoraTaxaTipoD {
+public class CalculadoraTaxaTipoD implements ICalculadoraTaxa {
 
 	public static final int VALOR_LIMITE_CALCULO_TIPO_A = 25000;
 	public static final int VALOR_LIMITE_CALCULO_TIPO_B = 120000;
 
-	public double calculaTaxa(Transferencia transferencia) {
-		if (transferencia.getValor() <= VALOR_LIMITE_CALCULO_TIPO_A) {
-			CalculadoraTaxaTipoA calculadora = new CalculadoraTaxaTipoA();
-			return calculadora.calculaTaxa(transferencia);
-		} else if (transferencia.getValor() > VALOR_LIMITE_CALCULO_TIPO_A
-				&& transferencia.getValor() <= VALOR_LIMITE_CALCULO_TIPO_B) {
-			CalculadoraTaxaTipoB calculadora = new CalculadoraTaxaTipoB();
-			return calculadora.calculaTaxa(transferencia);
+	@Override
+	public double calculaTaxa(TransferenciaBase transferenciaBase) {
+		ICalculadoraTaxa calculadora;
+		if (transferenciaBase.getValor().doubleValue() <= VALOR_LIMITE_CALCULO_TIPO_A) {
+			calculadora = new CalculadoraTaxaTipoA();
+		} else if (transferenciaBase.getValor().doubleValue() > VALOR_LIMITE_CALCULO_TIPO_A
+				&& transferenciaBase.getValor().doubleValue() <= VALOR_LIMITE_CALCULO_TIPO_B) {
+			calculadora = new CalculadoraTaxaTipoB();
+		} else {
+			calculadora = new CalculadoraTaxaTipoC();
 		}
-		CalculadoraTaxaTipoC calculadora = new CalculadoraTaxaTipoC();
-		return calculadora.calculaTaxa(transferencia);
+		return calculadora.calculaTaxa(transferenciaBase);
 	}
 
 }

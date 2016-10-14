@@ -1,27 +1,29 @@
-package br.com.lcv.model;
+package br.com.lcv.transferencia;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import br.com.lcv.calculadora.CalculadoraTaxaTipoD;
+import br.com.lcv.calculadora.ICalculadoraTaxa;
 
 public class TransferenciaD implements ITransferencia {
 
-	private Transferencia transferencia;
-	private double taxa;
+	private TransferenciaBase transferencia;
+	private BigDecimal taxa;
 	private TipoTransferencia tipo;
 
-	public TransferenciaD(Transferencia transferencia) {
+	public TransferenciaD(TransferenciaBase transferencia) {
 		this.transferencia = transferencia;
 		this.tipo = TipoTransferencia.D;
 		this.taxa = calculaTaxa();
-//		this.taxa.setScale(2, RoundingMode.HALF_UP);
 	}
 
 	@Override
-	public double calculaTaxa() {
-		CalculadoraTaxaTipoD calculadora = new CalculadoraTaxaTipoD();
-		return calculadora.calculaTaxa(transferencia);
+	public BigDecimal calculaTaxa() {
+		ICalculadoraTaxa calculadora = new CalculadoraTaxaTipoD();
+		double taxa = calculadora.calculaTaxa(transferencia);
+		BigDecimal bd = BigDecimal.valueOf(taxa);
+		return bd.setScale(2, RoundingMode.FLOOR);
 	}
 
 	@Override

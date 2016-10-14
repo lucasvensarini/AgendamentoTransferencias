@@ -4,15 +4,24 @@ import javax.validation.constraints.Pattern;
 
 public class Conta {
 
-	@Pattern(regexp = "\\d{5}-\\d{1}")
+	private static final String PADRAO_NUMERO_CONTA = "\\d{5}-\\d{1}";
+	
+	@Pattern(regexp = PADRAO_NUMERO_CONTA)
 	private String numero;
 	
-	public Conta(String numero) {
+	private Usuario usuario;
+	
+	public Conta(String numero, Usuario usuario) {
 		this.numero = numero;
+		this.usuario = usuario;
 	}
 	
 	public String getNumero() {
 		return numero;
+	}
+	
+	public Usuario getUsuario() {
+		return usuario;
 	}
 	
 }

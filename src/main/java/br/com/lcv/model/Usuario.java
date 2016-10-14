@@ -1,10 +1,11 @@
 package br.com.lcv.model;
 
+import br.com.lcv.transferencia.ITransferencia;
+
 public class Usuario {
 
 	private String nome;
 	private AgendadorTransferencias agendadorTransferencias;
-	private Conta conta;
 	
 	public Usuario(String nome) {
 		this.nome = nome;
@@ -13,14 +14,6 @@ public class Usuario {
 	
 	public String getNome() {
 		return nome;
-	}
-	
-	public Conta getConta() {
-		return conta;
-	}
-	
-	public void setConta(Conta conta) {
-		this.conta = conta;
 	}
 	
 	public void agendaTransferencia(ITransferencia transfercencia) {

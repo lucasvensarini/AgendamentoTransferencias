@@ -1,9 +1,13 @@
-package br.com.lcv.model;
+package br.com.lcv.transferencia;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Transferencia {
+import br.com.lcv.model.Conta;
+
+public class TransferenciaBase {
 
 	private static final String FORMATACAO_DATA = "dd/MM/yyyy";
 
@@ -11,19 +15,19 @@ public class Transferencia {
 
 	private Conta contaOrigem;
 	private Conta contaDestino;
-	private double valor;
+	private BigDecimal valor;
 	private LocalDateTime dataCadastro;
 	private LocalDateTime dataAgendamento;
 
-	public Transferencia(Conta contaOrigem, Conta contaDestino, double valor, LocalDateTime dataAgendamento) {
+	public TransferenciaBase(Conta contaOrigem, Conta contaDestino, BigDecimal valor, LocalDateTime dataAgendamento) {
 		this.contaOrigem = contaOrigem;
 		this.contaDestino = contaDestino;
-		this.valor = valor;
+		this.valor = valor.abs().setScale(2, RoundingMode.FLOOR);
 		this.dataCadastro = LocalDateTime.now();
 		this.dataAgendamento = dataAgendamento;
 	}
 
-	public double getValor() {
+	public BigDecimal getValor() {
 		return valor;
 	}
 

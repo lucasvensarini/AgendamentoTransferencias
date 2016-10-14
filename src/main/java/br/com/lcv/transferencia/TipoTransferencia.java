@@ -1,4 +1,4 @@
-package br.com.lcv.model;
+package br.com.lcv.transferencia;
 
 public enum TipoTransferencia {
 
