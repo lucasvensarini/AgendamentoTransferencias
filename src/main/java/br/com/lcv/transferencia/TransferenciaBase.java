@@ -9,8 +9,12 @@ import br.com.lcv.model.Conta;
 
 public class TransferenciaBase {
 
-	private static final String FORMATACAO_DATA = "dd/MM/yyyy";
+	private static final String CONTA_INVALIDA = "A conta não pode ser nula.";
+	private static final String VALOR_INVALIDO = "O valor não pode ser nulo.";
+	private static final String VALOR_NEGATIVO = "O valor não pode ser negativo.";
+	private static final String DATA_INVALIDA = "A data de agendamento não pode ser nula.";
 
+	private static final String FORMATACAO_DATA = "dd/MM/yyyy";
 	private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(FORMATACAO_DATA);
 
 	private Conta contaOrigem;
@@ -20,11 +24,11 @@ public class TransferenciaBase {
 	private LocalDateTime dataAgendamento;
 
 	public TransferenciaBase(Conta contaOrigem, Conta contaDestino, BigDecimal valor, LocalDateTime dataAgendamento) {
-		this.contaOrigem = contaOrigem;
-		this.contaDestino = contaDestino;
-		this.valor = valor.abs().setScale(2, RoundingMode.FLOOR);
+		this.contaOrigem = validaConta(contaOrigem);
+		this.contaDestino = validaConta(contaDestino);
+		this.valor = validaValor(valor);
 		this.dataCadastro = LocalDateTime.now();
-		this.dataAgendamento = dataAgendamento;
+		this.dataAgendamento = validaData(dataAgendamento);
 	}
 
 	public BigDecimal getValor() {
@@ -54,6 +58,32 @@ public class TransferenciaBase {
 		sb.append(System.getProperty("line.separator"));
 
 		return sb.toString();
+	}
+
+	private Conta validaConta(Conta conta) {
+		if (conta == null) {
+			throw new NullPointerException(CONTA_INVALIDA);
+		}
+		return conta;
+	}
+
+	private BigDecimal validaValor(BigDecimal valor) {
+		if (valor == null) {
+			throw new NullPointerException(VALOR_INVALIDO);
+		}
+
+		if (valor.doubleValue() < 0) {
+			throw new IllegalArgumentException(VALOR_NEGATIVO);
+		}
+
+		return valor.setScale(2, RoundingMode.FLOOR);
+	}
+
+	private LocalDateTime validaData(LocalDateTime data) {
+		if (data == null) {
+			throw new NullPointerException(DATA_INVALIDA);
+		}
+		return data;
 	}
 
 }
