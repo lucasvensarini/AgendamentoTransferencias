@@ -1,8 +1,8 @@
 package br.com.lcv.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.function.Consumer;
 
 import br.com.lcv.transferencia.ITransferencia;
 
@@ -14,8 +14,12 @@ public class AgendadorTransferencias {
 		transferencias = new ArrayList<>();
 	}
 	
-	public void agendaTransferencia(ITransferencia transfercencia) {
-		transferencias.add(transfercencia);
+	public List<ITransferencia> getTransferencias() {
+		return Collections.unmodifiableList(transferencias);
+	}
+	
+	public void agendaTransferencia(ITransferencia transferencia) {
+		transferencias.add(transferencia);
 	}
 	
 	public void listaAgendamentos() {
