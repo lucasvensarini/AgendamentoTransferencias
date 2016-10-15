@@ -8,4 +8,4 @@ Uma classe TransferenciaBase com as propriedades comuns a todas as transferênci
 
 Algumas validações foram adicionadas (not null, valor negativo e padrão do número da conta no formato XXXXX-X). Nenhum framework de validação foi utilizado.
 
-Foram feitos testes unitários para testar se a forma de cálculo foi desenvolvida corretamente. Outras classes não foram testadas, pois são basicamente atribuições e chamadas de métodos do próprio Java, que já são testados.
+Foram feitos testes unitários para testar a forma de cálculo das taxas, as validações e chamadas de métodos. Alguns pontos não foram testados, pois são basicamente atribuições e chamadas de métodos do próprio Java.
