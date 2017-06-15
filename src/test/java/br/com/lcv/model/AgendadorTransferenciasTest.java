@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,6 +19,11 @@ import br.com.lcv.transferencia.TransferenciaD;
 
 public class AgendadorTransferenciasTest {
 
+	private static final String FORMATACAO_DATA = "dd/MM/yyyy";
+	private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(FORMATACAO_DATA);
+	
+	private LocalDateTime dataCadastro;
+
 	private ByteArrayOutputStream out;
 
 	private AgendadorTransferencias at;
@@ -30,6 +36,8 @@ public class AgendadorTransferenciasTest {
 	private ITransferencia transferenciaD;
 
 	public AgendadorTransferenciasTest() {
+		this.dataCadastro = LocalDateTime.now();
+
 		out = new ByteArrayOutputStream();
 		System.setOut(new PrintStream(out));
 		contaOrigem = new Conta("12345-6", new Usuario("Lucas"));
@@ -72,7 +80,7 @@ public class AgendadorTransferenciasTest {
 		sb.append(System.getProperty("line.separator"));
 		sb.append("Valor: 1000.00");
 		sb.append(System.getProperty("line.separator"));
-		sb.append("Data de Cadastro: 15/10/2016");
+		sb.append("Data de Cadastro: ").append(dataCadastro.format(dateTimeFormatter));
 		sb.append(System.getProperty("line.separator"));
 		sb.append("Data de Agendamento: 15/10/2016");
 		sb.append(System.getProperty("line.separator"));
@@ -88,7 +96,7 @@ public class AgendadorTransferenciasTest {
 		sb.append(System.getProperty("line.separator"));
 		sb.append("Valor: 1000.00");
 		sb.append(System.getProperty("line.separator"));
-		sb.append("Data de Cadastro: 15/10/2016");
+		sb.append("Data de Cadastro: ").append(dataCadastro.format(dateTimeFormatter));
 		sb.append(System.getProperty("line.separator"));
 		sb.append("Data de Agendamento: 15/10/2016");
 		sb.append(System.getProperty("line.separator"));
@@ -98,14 +106,13 @@ public class AgendadorTransferenciasTest {
 		sb.append(System.getProperty("line.separator"));
 		sb.append(System.getProperty("line.separator"));
 
-		
 		sb.append("Conta de origem: 12345-6");
 		sb.append(System.getProperty("line.separator"));
 		sb.append("Conta de destino: 78901-2");
 		sb.append(System.getProperty("line.separator"));
 		sb.append("Valor: 1000.00");
 		sb.append(System.getProperty("line.separator"));
-		sb.append("Data de Cadastro: 15/10/2016");
+		sb.append("Data de Cadastro: ").append(dataCadastro.format(dateTimeFormatter));
 		sb.append(System.getProperty("line.separator"));
 		sb.append("Data de Agendamento: 15/10/2016");
 		sb.append(System.getProperty("line.separator"));
@@ -121,7 +128,7 @@ public class AgendadorTransferenciasTest {
 		sb.append(System.getProperty("line.separator"));
 		sb.append("Valor: 1000.00");
 		sb.append(System.getProperty("line.separator"));
-		sb.append("Data de Cadastro: 15/10/2016");
+		sb.append("Data de Cadastro: ").append(dataCadastro.format(dateTimeFormatter));
 		sb.append(System.getProperty("line.separator"));
 		sb.append("Data de Agendamento: 15/10/2016");
 		sb.append(System.getProperty("line.separator"));
